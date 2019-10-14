@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+RUNNING_DIR=$(pwd)
+SCRIPTS_DIR=$( cd "$( dirname "$0" )" >/dev/null 2>&1 && pwd )
+
+if [ ! -e "$SCRIPTS_DIR/actions" ]; then
+  SCRIPTS_DIR=$(dirname `readlink "$0"`)
+fi
+
+ACTIONS_DIR="$SCRIPTS_DIR/actions"
+MODULES_DIR="$SCRIPTS_DIR/modules"
+
+. "${SCRIPTS_DIR}/_colors.sh"
+. "${SCRIPTS_DIR}/_icons.sh"
+
+. "${SCRIPTS_DIR}/_functions.sh"
+
+MODULE_NAME=$1
+
+if [ -z "${MODULE_NAME}" ]; then
+    MODULE_NAME="help"
+fi
+
+if [ $# -gt 0 ]; then
+  shift
+fi
+
+# Get module file path
+if [ -e "$ACTIONS_DIR/$MODULE_NAME" ]; then
+  MODULE_FILE="$ACTIONS_DIR/$MODULE_NAME"
+else
+  MODULE_FILE="$MODULES_DIR/$MODULE_NAME"
+fi
+
+if [ ! -e "$MODULE_FILE" ]; then
+  errorMessage "Module [$MODULE_NAME] is not exists"
+  exit 1
+fi
+
+source $MODULE_FILE

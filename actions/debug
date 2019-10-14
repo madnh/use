@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+step "> Debug"
+#--------------------------------
+echo "Current path: ${RUNNING_DIR}"
+echo "Scripts folder: ${SCRIPTS_DIR}"
+echo "Running action: ${MODULE_NAME}"
+
+step "> All Hey scripts files:"
+#--------------------------------
+ls -lah ${SCRIPTS_DIR}
+
+shortLine
+
+success

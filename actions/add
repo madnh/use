@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+step "> Add module"
+#--------------------------------
+SCRIPT_EDITOR='vim'
+
+NEW_MODULE_NAME="$1"
+while [ -z $NEW_MODULE_NAME ]
+do
+    echo -n "Module name: "
+    read NEW_MODULE_NAME
+done
+
+CHECK_ACTION_FILE="$ACTIONS_DIR/$NEW_MODULE_NAME"
+NEW_MODULE_FILE="$MODULES_DIR/$NEW_MODULE_NAME"
+
+if [ -e "$CHECK_ACTION_FILE" ]; then
+    errorMessage "Action with same name is exists, please choose other name"
+    exit 1
+fi
+
+if [ -e "$NEW_MODULE_FILE" ]; then
+    errorMessage "Module is exists"
+    exit 1
+fi
+
+step "> Create module"
+#--------------------------------
+echo "Module file: $NEW_MODULE_FILE"
+
+echo "#!/usr/bin/env bash
+
+echo \"This is module $NEW_MODULE_NAME\"
+" > $NEW_MODULE_FILE
+
+chmod +x $NEW_MODULE_FILE
+
+# Edit module file
+"$SCRIPT_EDITOR" "$NEW_MODULE_FILE"

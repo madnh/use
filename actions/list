@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+step "> Actions"
+#--------------------------------
+ls -1 ${ACTIONS_DIR}
+
+step "> Modules"
+#--------------------------------
+ls -1 ${MODULES_DIR}

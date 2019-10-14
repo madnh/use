@@ -1,0 +1,10 @@
+Usage: use <action to do>
+
+Examples:
+    use add
+    use remove
+
+Availabe Actions:
+    add     Create module
+    remove  Remove module
+    debug   Debug script

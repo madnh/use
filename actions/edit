@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+SCRIPT_EDITOR='vim'
+
+MODULE_NAME=$1
+MODULE_FILE="$MODULES_DIR/$MODULE_NAME"
+
+if [ ! -e "$MODULE_FILE" ]; then
+    errorMessage "Module is not exists"
+    exit 1
+fi
+
+if ( ! _confirm "Remove module ${FG_RED}${MODULE_NAME}${FG_DEFAULT}?" ) ; then
+  echo "OK, bye!"
+  exit 0
+fi
+
+"$SCRIPT_EDITOR" "$MODULE_FILE"
+
+success
